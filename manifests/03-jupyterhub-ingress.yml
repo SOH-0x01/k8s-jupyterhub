@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jupyterhub-ingress
+  labels:
+    app: jupyterhub
+    role: ingress
+spec:
+  rules:
+  - host: red.datsci.farm
+    http:
+      paths:
+      - path: /jupyter
+        backend:
+          serviceName: jupyterhub
+          servicePort: 8000

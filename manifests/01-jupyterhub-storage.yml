@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: jupyterhub-storage
+  labels:
+    app: jupyterhub
+    role: storage
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://185.19.31.101:8080"
+  restauthenabled: "false"
