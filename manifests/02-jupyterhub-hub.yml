@@ -32,13 +32,15 @@ data:
     c.KubeSpawner.hub_connect_ip = os.environ['JUPYTERHUB_SERVICE_HOST']
     c.KubeSpawner.hub_connect_port = int(os.environ['JUPYTERHUB_SERVICE_PORT'])
     c.KubeSpawner.singleuser_image_spec = 'datsci0x01/notebook'
+    c.KubeSpawner.singleuser_image_pull_policy = 'IfNotPresent'
     ## SPAWNER - Storage
-    c.KubeSpawner.user_storage_capacity = '10Gi'
     c.KubeSpawner.user_storage_class = 'jupyterhub-storage'
+    c.KubeSpawner.user_storage_capacity = '10Gi'
+    c.KubeSpawner.pvc_name_template = 'claim-{username}'
     c.KubeSpawner.volumes = [{
         'name' : 'notebook-volume',
         'persistentVolumeClaim' : {
-            'claimName' : 'claim-{username}-{userid}',
+            'claimName' : 'claim-{username}',
         },
     }]
     c.KubeSpawner.volume_mounts = [{
@@ -46,9 +48,8 @@ data:
         'mountPath' : '/home/jovyan/work',
     }]
     ## AUTHENTICATOR - Github
-    c.Authenticator.whitelist = {'mmguillen','ffgarcin'}
-    c.Authenticator.admin_users = {'mmguillen','ffgarcin'}
-    #c.JupyterHub.authenticator_class = 'dummyauthenticator.DummyAuthenticator'
+    c.Authenticator.whitelist = {'mmguillen','ffgarcin','eamonnmag'}
+    c.Authenticator.admin_users = {'mmguillen','ffgarcin','eamonnmag'}
     c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
     c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
     c.GitHubOAuthenticator.client_id = os.environ['OAUTH_CLIENT_ID']
