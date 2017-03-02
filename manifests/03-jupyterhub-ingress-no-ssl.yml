@@ -1,13 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: jupyterhub-ingress
+  name: jupyterhub-ingress-no-ssl
   labels:
     app: jupyterhub
     role: ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.org/proxy-pass-headers: "X-Real-IP $remote_addr,Host $host,X-Forwarded-For $proxy_add_x_forwarded_for"
 spec:
   rules:
-  - host: red.datsci.farm
+  - host: ds2.am.pictet
     http:
       paths:
       - path: /jupyter

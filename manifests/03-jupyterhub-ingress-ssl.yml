@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jupyterhub-ingress-tls
+  labels:
+    app: jupyterhub
+    role: ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    nginx.org/proxy-pass-headers: "X-Real-IP $remote_addr,Host $host,X-Forwarded-For $proxy_add_x_forwarded_for"
+spec:
+  tls:
+  - hosts:
+    - ds2.am.pictet
+    secretName: ds2-am-pictet-tls
+  rules:
+  - host: ds2.am.pictet
+    http:
+      paths:
+      - path: /jupyter
+        backend:
+          serviceName: jupyterhub
+          servicePort: 8000
