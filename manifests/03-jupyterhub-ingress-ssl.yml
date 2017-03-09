@@ -14,7 +14,7 @@ spec:
   tls:
   - hosts:
     - red.datsci.farm
-    secretName: ds2-am-pictet-tls
+    secretName: red-datsci-farm-tls
   rules:
   - host: red.datsci.farm
     http:

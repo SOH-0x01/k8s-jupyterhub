@@ -8,5 +8,5 @@ metadata:
     role: storage
 provisioner: kubernetes.io/glusterfs
 parameters:
-  resturl: "http://159.100241.152:8080"
+  resturl: "http://159.100.241.152:8080"
   restauthenabled: "false"
