@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jupyterhub
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     role: hub
@@ -16,6 +17,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: jupyterhub-config
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     role: config
@@ -48,8 +50,8 @@ data:
         'mountPath' : '/home/jovyan/work',
     }]
     ## AUTHENTICATOR - Github
-    c.Authenticator.whitelist = {'mmguillen','ffgarcin','eamonnmag'}
-    c.Authenticator.admin_users = {'mmguillen','ffgarcin','eamonnmag'}
+    c.Authenticator.whitelist = {'datsci-0x01'}
+    c.Authenticator.admin_users = {'datsci-0x01'}
     c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
     c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
     c.GitHubOAuthenticator.client_id = os.environ['OAUTH_CLIENT_ID']
@@ -59,19 +61,21 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: jupyterhub-oauth-credentials
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     role: secret-oauth-credential
 type: Opaque
 data:
-  client_id: ZjZmMDQxY2M1NWM2MGI0YjJkYjE=
-  client_secret: NmVjMDY2MDE5Nzg1MzU2NzI0Yzg2NzllYzZjN2ExN2FhMzg3ZmE1NQ==
-  callback_url: aHR0cDovL2RzMi5hbS5waWN0ZXQvanVweXRlci9odWIvb2F1dGhfY2FsbGJhY2s=
+  client_id: ZjhmMDA5Y2M3Y2IwMzgxNDFmNGU=
+  client_secret: NjFhMDhhNDA5MjhjYWQzNmFkNTkyMDc4NTllMzk5ZDI5ZjA0ZTBhYg==
+  callback_url: aHR0cDovL3JlZC5kYXRzY2kuZmFybS9qdXB5dGVyL2h1Yi9vYXV0aF9jYWxsYmFjaw==
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: jupyterhub
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     role: hub

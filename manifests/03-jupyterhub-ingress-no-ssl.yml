@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: jupyterhub-ingress-no-ssl
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     role: ingress

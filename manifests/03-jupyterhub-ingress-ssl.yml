@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: jupyterhub-ingress-tls
+  namespace: jupyterhub
   labels:
     app: jupyterhub
     role: ingress
@@ -12,10 +13,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - ds2.am.pictet
+    - red.datsci.farm
     secretName: ds2-am-pictet-tls
   rules:
-  - host: ds2.am.pictet
+  - host: red.datsci.farm
     http:
       paths:
       - path: /jupyter
